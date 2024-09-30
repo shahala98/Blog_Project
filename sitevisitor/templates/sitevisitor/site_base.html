@@ -1,0 +1,103 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Sitevisitor{% endblock %}</title>
+    
+    <!-- Core CSS -->
+    <link rel="stylesheet" href="{% static 'assets/vendor/css/core.css' %}" class="template-customizer-core-css" />
+    <link rel="stylesheet" href="{% static 'assets/vendor/css/theme-default.css' %}" class="template-customizer-theme-css" />
+    <link rel="stylesheet" href="{% static 'assets/css/demo.css' %}" />
+    
+    <!-- Custom Styles -->
+    <style>
+        body {
+            background-color: rgba(245, 222, 179, 0.205); 
+        }
+        .navbar {
+            padding: 10px 0;
+            background: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .navbar ul {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            display: flex;
+            align-items: flex-end;
+            width: 100vh;
+        }
+        .navbar a {
+            color: #555;
+            text-decoration: none;
+            padding: 10px 20px;
+            display: block;
+        }
+        .navbar a:hover,
+        .navbar a.active {
+            color: #4CAF50;
+        }
+        #hero {
+            background-color: rgba(255, 255, 255, 0.486); /* Bootstrap primary blue background color */
+            color: #ffffff9d;
+            padding: 150px 0;
+            text-align: center;
+            font-size: larger;
+        }
+        #hero h1,
+        #hero h2 {
+            color: black;
+            text-decoration: underline;
+            text-align: center;
+            font-size: xx-large;
+            font-weight: 1000;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        }
+        /* .back-arrow {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            font-size: 24px;
+            color: #4CAF50;
+            cursor: pointer;
+        } */
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <header class="d-flex justify-content-between align-items-center mb-4">
+            <h1 class="logo me-auto"><a href="{% url 'home' %}">Blogging Platform</a></h1>
+            <nav id="navbar" class="navbar">
+                <ul class="d-flex">
+                    <li><a class="active" href="{% url 'home' %}">Home</a></li>
+                    <li><a href="{% url 'admin_login' %}">Admin</a></li>
+                    <li><a href="{% url 'login' %}">Login</a></li>
+                    <li><a href="{% url 'registration' %}">Register</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <!-- Back Arrow
+        <div class="back-arrow">
+            <a href="{% url '404' %}">←</a>
+        </div> -->
+
+        {% block content %}
+        {% endblock %}
+
+        {% if messages %}
+            {% for message in messages %}
+                <script>
+                    alert('{{ message }}');
+                </script>
+            {% endfor %}
+        {% endif %}
+    </div>
+
+    <!-- JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.min.js"></script>
+</body>
+</html>

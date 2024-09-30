@@ -1,0 +1,34 @@
+{% extends 'userpanel/user_base.html' %}
+{% block title %}
+user panel | view profile
+{% endblock %}
+
+{% block content %}
+
+<a href="{% url 'add_profile' %}" class="btn btn-primary">Add new profile</a>
+<br>
+<div class="container">
+    <h1>User Profile</h1>
+    <div class="card mb-3">
+        <div class="card-body">
+            <h5 class="card-title">Profile Details</h5>
+            <p><strong>Username:</strong> {{ user.username }}</p>
+            <p><strong>Email:</strong> {{ user.email }}</p>
+            <!-- Add more profile details as needed -->
+            {% if profile %}
+            <p><strong>Name:</strong> {{ profile.name }}</p>
+            <p><strong>About:</strong> {{ profile.about }}</p>
+            <p><strong>ID Proof:</strong> <a href="{{ profile.id_proof.url }}" target="_blank">View ID Proof</a></p>
+            <img src="{{ profile.profile_image.url }}" alt="Profile Image">
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Optional: Links for Edit Profile and Change Password -->
+    <p>
+        <a href="{% url 'edit_profile' %}" class="btn btn-primary">Edit Profile</a>
+
+        <a href="{% url 'delete_profile'  %}"  class="btn btn-danger">Delete Profile</a>
+    </p>
+</div>
+{% endblock %}

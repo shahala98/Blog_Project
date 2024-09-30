@@ -1,0 +1,100 @@
+{% extends 'adminpanel/admin_base.html' %}
+
+{% block title %}
+Admin Panel | Home
+{% endblock %}
+
+{% block content %}
+
+<style>
+    body {
+        background-color: #000000; /* Black background */
+    }
+
+    /* Style the admin dashboard cards */
+    .card {
+        background-color: #33333351; 
+        color: #ffffff; 
+        border: 1px solid #44444482; 
+    }
+
+    /* Style the card headers */
+    .card .card-body {
+        background-color: #444444a5; 
+    }
+
+    /* Style links inside cards */
+    .card .btn {
+        background-color: #007bff; 
+        color: #ffffff; 
+    }
+
+    .card .btn:hover {
+        background-color: #0056b3;
+    }
+</style>
+<a href="{% url 'admin_login' %}" class="btn btn-primary">Back To Login</a>
+<h2 class="text-center">Admin Dashboard</h2>
+
+<div class="container mt-4">
+    <div class="row">
+        <!-- Blog Statistics -->
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Blog Posts</h5>
+                    <p class="card-text">Total Blog Posts: {{ total_blog_posts }}</p>
+                    <a href="{% url 'blog_list' %}" class="btn btn-primary">View All Posts</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- User Statistics -->
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Users</h5>
+                    <p class="card-text">Total Users: {{ total_users }}</p>
+                    <a href="{% url 'user_list' %}" class="btn btn-primary">View All Users</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Profile -->
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Profile</h5>
+                    <p class="card-text">Profile: {{ profile }}</p>
+                    <a href="{% url 'view_user' %}" class="btn btn-primary">View Profile</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Blog Details -->
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Latest Blog</h5>
+                    <p class="card-text">Latest Blog: {{ latest_blog.title }}</p>
+                    <a href="{% url 'blog_view' latest_blog.id %}" class="btn btn-primary">View Blog</a>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Reset Password -->
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">Reset Password</h5>
+                    <a href="{% url 'reset_password' %}" class="btn btn-primary">Reset User Passwords</a>
+                </div>
+            </div>
+        </div>
+
+        
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,39 @@
+{% extends "userpanel/user_base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>Create Profile</h2>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="username" class="form-label">Username</label>
+            <input type="text" class="form-control" id="username" name="username" value="{{ user.username }}" readonly>
+        </div>
+        <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" class="form-control" id="email" name="email" value="{{ user.email }}" readonly>
+        </div>
+        <div class="mb-3">
+            <label for="first_name" class="form-label">First Name</label>
+            <input type="text" class="form-control" id="first_name" name="first_name" placeholder="Enter your first name">
+        </div>
+        <div class="mb-3">
+            <label for="last_name" class="form-label">Last Name</label>
+            <input type="text" class="form-control" id="last_name" name="last_name" placeholder="Enter your last name">
+        </div>
+        <div class="mb-3">
+            <label for="about" class="form-label">About</label>
+            <textarea class="form-control" id="about" name="about" rows="3" placeholder="Tell us something about yourself"></textarea>
+        </div>
+        <div class="mb-3">
+            <label for="id_proof" class="form-label">ID Proof</label>
+            <input type="file" class="form-control" id="id_proof" name="id_proof">
+        </div>
+        <div class="mb-3">
+            <label for="profile_photo" class="form-label">Profile Photo</label>
+            <input type="file" class="form-control" id="profile_photo" name="profile_photo">
+        </div>
+        <button type="submit" class="btn btn-primary">Create Profile</button>
+    </form>
+</div>
+{% endblock %}

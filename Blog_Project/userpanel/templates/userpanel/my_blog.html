@@ -1,0 +1,36 @@
+{% extends 'userpanel/user_base.html' %}
+
+{% block title %}
+admin panel | my blog
+{% endblock %}
+
+{% block content %}
+<h2>Welcome to My blogs</h2>
+
+<h3>Latest Blogs</h3>
+
+{% if blogs %}
+    <div class="blog-list">
+        {% for blog in blogs %}
+            <div class="blog-item">
+                <h2>{{ blog.title }}</h2>
+                {% if blog.image %}
+                    <img src="{{ blog.image.url }}" alt="{{ blog.title }} Image">
+                {% endif %}
+                <p>{{ blog.content }}</p>
+                <!-- Display other fields as needed -->
+
+                <div class="blog-actions">
+                    <!-- Link to the edit blog view -->
+                    <a href="{% url 'edit_blog' blog.id %}" class="btn btn-primary">Edit</a>
+                    
+                    <!-- Link to the view more blog details view -->
+                    <a href="{% url 'view_blog' %}" class="btn btn-secondary">View More</a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% else %}
+    <p>No blogs found.</p>
+{% endif %}
+{% endblock %}

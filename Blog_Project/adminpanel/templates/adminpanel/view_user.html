@@ -1,0 +1,70 @@
+{% extends "adminpanel/admin_base.html" %}
+{% block title %}
+admin panel | view user
+{% endblock %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ user.username }}'s Profile</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center">{{ user.username }}'User Profile</h1>
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card mb-3">
+                    <div class="row no-gutters">
+                        <div class="col-md-4">
+                            {% if profile.profile_image %}
+                                <img src="{{ profile.profile_image.url }}" class="card-img" alt="{{ user.username }}'s profile image">
+                            {% else %}
+                                <img src="https://via.placeholder.com/150" class="card-img" alt="Default profile image">
+                            {% endif %}
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ user.username }}</h5>
+
+                                <p class="card-text"><strong>Email:</strong> {{ user.email }}</p>
+                                {% if profile.about %}
+                                    <p class="card-text"><strong>About:</strong> {{ profile.about }}</p>
+                                {% endif %}
+                                {% if profile.phone %}
+                                    <p class="card-text"><strong>Phone:</strong> {{ profile.phone }}</p>
+                                {% endif %}
+                                {% if profile.status %}
+                                    <p class="card-text"><strong>Status:</strong> {{ profile.status }}</p>
+                                {% endif %}
+                                {% if profile.id_proof %}
+                                    <p class="card-text"><strong>ID Proof:</strong></p>
+                                    <img src="{{ profile.id_proof.url }}" class="img-fluid" alt="ID Proof">
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <h5>Recent Blogs by {{ user.username }}</h5>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        {% for blog in blogs %}
+                            <li class="list-group-item">
+                                <a href="{% url 'view_blog' blog.id %}">{{ blog.title }}</a>
+                                <small class="text-muted"> - {{ blog.created_at }}</small>
+                            </li>
+                        {% empty %}
+                            <li class="list-group-item">No blogs found.</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+{% endblock %}

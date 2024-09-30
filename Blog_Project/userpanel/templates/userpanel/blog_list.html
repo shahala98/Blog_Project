@@ -1,0 +1,38 @@
+{% extends 'userpanel/user_base.html' %}
+{% block title %}
+user panel | blog list
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>Blog Posts</h1>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Author</th>
+                <th>Created At</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for blog in blogs %}
+            <tr>
+                <td>{{ blog.title }}</td>
+                <td>{{ blog.author.username }}</td>
+                <td>{{ blog.created_at }}</td>
+                <td>
+                   
+                        <a href="{% url 'blog_details' blog.pk %}" class="btn btn-info">View more</a>
+                        <a href="{% url 'edit_blog' blog.pk %}" class="btn btn-primary">Edit</a>
+                        <a href="{% url 'delete_blog' blog.pk %}" class="btn btn-danger">Delete</a>
+
+                    
+                    
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

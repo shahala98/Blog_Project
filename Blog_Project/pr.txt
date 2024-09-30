@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>{% block title %}Blogging platform {% endblock %}</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="{% static 'assets/img/apple-touch-icon.png' %}" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="{% static 'assets/vendor/aos/aos.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/boxicons/css/boxicons.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
+  <link href="{% static 'assets/vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="{% static 'assets/css/style.css' %}" rel="stylesheet">
+
+  <style>
+    body {
+      background-color: #f8f9fa; /* Light gray background color */
+    }
+
+    .navbar {
+      padding: 10px 0;
+      background: #fff;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .navbar ul {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      display: flex;
+    }
+
+    .navbar a {
+      color: #555;
+      text-decoration: none;
+      padding: 10px 20px;
+      display: block;
+    }
+
+    .navbar a:hover,
+    .navbar a.active {
+      color: #4CAF50;
+    }
+
+    .navbar .mobile-nav-toggle {
+      display: none;
+      cursor: pointer;
+    }
+
+    @media (max-width: 991px) {
+      .navbar .mobile-nav-toggle {
+        display: block;
+      }
+
+      .navbar ul {
+        display: none;
+        flex-direction: column;
+      }
+
+      .navbar ul.active {
+        display: flex;
+      }
+      section {
+        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        font-size: larger;
+        font-style: italic;
+      }
+    }
+
+    #hero {
+      background-color: #007bff; /* Bootstrap primary blue background color */
+      color: #fff;
+      padding: 100px 0;
+      text-align: center;
+    }
+
+    #hero h1,
+    #hero h2 {
+      color: #fff;
+    }
+  </style>
+
+</head>
+
+<body>
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="fixed-top">
+    <div class="container-fluid d-flex justify-content-between align-items-center">
+
+      <h1 class="logo me-auto me-lg-0"><a href="{% url 'home' %}">Blogging Platform</a></h1>
+
+      <nav id="navbar" class="navbar order-last order-lg-0">
+        <ul class="nav nav-underline">
+            <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Blog</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="{% url 'home' %}">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" href="{% url 'registration' %}">Register</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" href="{% url 'login' %}">Login</a>
+            </li>
+        </ul>
+      </nav><!-- .navbar -->
+    </div>
+  </header><!-- End Header -->
+
+  <!-- ======= Hero Section ======= -->
+  <section id="hero" class="d-flex align-items-center">
+    <div class="container d-flex flex-column align-items-center" data-aos="zoom-in" data-aos-delay="100">
+      <h1>Blogging platform</h1>
+      <h2>This is the one of the best blogging platform</h2>
+      
+    </div>
+  </section><!-- End Hero -->
+
+  
+  <div id="preloader"></div>
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="{% static 'assets/vendor/purecounter/purecounter_vanilla.js' %}"></script>
+  <script src="{% static 'assets/vendor/aos/aos.js' %}"></script>
+  <script src="{% static 'assets/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/glightbox/js/glightbox.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/isotope-layout/isotope.pkgd.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/swiper/swiper-bundle.min.js' %}"></script>
+  <script src="{% static 'assets/vendor/waypoints/noframework.waypoints.js' %}"></script>
+  <script src="{% static 'assets/vendor/php-email-form/validate.js' %}"></script>
+
+  <!-- Template Main JS File -->
+  <script src="{% static 'assets/js/main.js' %}"></script>
+  
+
+</body>
+
+</html>
+
+
+
+<h1>{{ blog.title }}</h1>
+<p>{{ blog.content }}</p>
+<img src="{{ blog.blog_images.url }}" alt="Blog Image">
+
+<!-- Button to show/hide comments -->
+<form method="get" action="{% url 'view_blog' blog.id %}">
+    {% if not comments_visible %}
+        <button type="submit" name="show_comments">Show Comments</button>
+    {% else %}
+        <button type="submit" name="hide_comments">Hide Comments</button>
+    {% endif %}
+</form>
+
+{% if comments_visible %}
+    <h2>Comments</h2>
+    {% for comment in comments %}
+        <div>
+            <p><strong>{{ comment.author }}</strong> says:</p>
+            <p>{{ comment.content }}</p>
+            <p><small>Posted on {{ comment.created_at }}</small></p>
+        </div>
+    {% empty %}
+        <p>No comments yet.</p>
+    {% endfor %}
+{% endif %}
+
+<!-- Comment form -->
+<h2>Add a Comment</h2>
+<form method="post" action="{% url 'view_blog' blog.id %}">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Submit</button>
+
+
+
+
+
+profile
+
+{% extends 'userpanel/user_base.html' %}
+
+{% block title %}
+User | Profile
+{% endblock %}
+
+{% block content %}
+<a href="{% url 'user_home' %}" class="btn btn-primary">Back to home page</a>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Profile</h3>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <!-- Profile Image -->
+                            <div class="text-center">
+                                {% if user.profile.profile_image %}
+                                    <a href="{{ user.profile.profile_image.url }}" target="_blank">
+                                        <img src="{{ user.profile.profile_image.url }}" alt="Profile Image" class="img-fluid rounded-circle">
+                                    </a>
+                                {% else %}
+                                    <p>No Profile Image</p>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <!-- Profile Details -->
+                            <h4>{{ user.username }}</h4>
+                            <p><strong>Email:</strong> {{ user.email }}</p>
+                            <p><strong>Phone:</strong> {{ user.profile.phone }}</p>
+                            <p><strong>About:</strong> {{ user.profile.about }}</p>
+
+                            <p><strong>ID Proof:</strong> 
+                                {% if user.profile.id_proof %}
+                                    <a href="{{ user.profile.id_proof.url }}">View ID Proof</a>
+                                {% else %}
+                                    Not provided
+                                {% endif %}
+                            </p>
+
+                            <!-- Edit Profile Button -->
+                            <!-- {% if user.is_authenticated   %} -->
+                                <a href="{% url 'edit_profile' %}" class="btn btn-primary">Edit Profile</a>
+                            {% endif %}
+
+                            <!-- Delete Profile Form -->
+                            {% if user.is_authenticated   %}
+                                <form action="{% url 'delete_profile' %}" method="post" style="display:inline;">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="profile_id" value="{{ user.profile.id }}">
+                                    <button type="submit" class="btn btn-danger">Delete Profile</button>
+                                </form>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

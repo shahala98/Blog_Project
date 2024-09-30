@@ -1,0 +1,13 @@
+{% extends 'userpanel/user_base.html' %}
+{% block title %}
+user panel | edit profile
+{% endblock %}
+
+{% block content %}
+<h2>Edit Profile</h2>
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Save changes</button>
+</form>
+{% endblock %}

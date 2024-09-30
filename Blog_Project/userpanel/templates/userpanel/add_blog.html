@@ -1,0 +1,15 @@
+<!-- userpanel/add_blog.html -->
+{% extends 'userpanel/user_base.html' %}
+
+{% block title %}
+Add Blog
+{% endblock %}
+
+{% block content %}
+<h2>Add a New Blog</h2>
+<form method="post" enctype="multipart/form-data">  <!-- Ensure this line is present -->
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Add Blog</button>
+</form>
+{% endblock %}

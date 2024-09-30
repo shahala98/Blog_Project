@@ -1,0 +1,58 @@
+{% extends "adminpanel/admin_base.html" %}
+{% block title %}
+    Admin Panel | View User
+{% endblock %}
+{% block content %}
+    <div class="container mt-5">
+        <h1 class="text-center">{{ user.username }}'s User Profile</h1>
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card mb-3">
+                    <div class="row no-gutters">
+                        <div class="col-md-3">
+                            <!-- profile photo  -->
+                            <p><strong>Profile Image:</strong></p>
+                            {% if user.profile.profile_image %}
+                                <img src="{{ user.profile.profile_image.url }}" class="img-fluid" alt="Profile Image">
+                            {% else %}
+                                <p>Not provided</p>
+                            {% endif %}
+                        </div>
+                        <div class="col-md-9">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ user.username }}</h5>
+                                <p class="card-text"><strong>Email:</strong> {{ user.email }}</p>
+                                {% if user.profile.about %}
+                                    <p class="card-text"><strong>About:</strong> {{ user.profile.about }}</p>
+                                {% endif %}
+                                {% if user.profile.phone %}
+                                    <p class="card-text"><strong>Phone:</strong> {{ user.profile.phone }}</p>
+                                {% endif %}
+                                {% if user.profile.status %}
+                                    <p class="card-text"><strong>Status:</strong> {{ user.profile.status }}</p>
+                                {% endif %}
+
+                                <!--  id proof -->
+                                <p><strong>ID Proof:</strong> 
+                                    {% if user.profile.id_proof %}
+                                        <a href="{{ user.profile.id_proof.url }}">View ID Proof</a>
+                                    {% else %}
+                                        Not provided
+                                    {% endif %}
+                                    <br>
+                                     <!-- Upload Profile Photo Form -->
+                            {% if request.user.is_authenticated and request.user == user %}
+                                
+                            <br> 
+                            <a href="{% url 'edit_profile' %}" class="btn btn-primary">Edit Profile</a>
+                            <a href="{% url 'delete_profile' %}" class="btn btn-danger">Delete profile</a>
+
+                            
+                        {% endif %}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+{% endblock %}

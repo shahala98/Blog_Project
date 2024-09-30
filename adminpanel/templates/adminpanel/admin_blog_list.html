@@ -1,0 +1,84 @@
+{% extends 'adminpanel/admin_base.html' %}
+{% block title %}
+admin panel | blog list
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>Blog Posts</h1>
+    
+    <h2>Published Blogs</h2>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Author</th>
+                <th>Created At</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for blog in published_blogs %}
+            <tr>
+                <td>{{ blog.title }}</td>
+                <td>{{ blog.author.username }}</td>
+                <td>{{ blog.created_at }}</td>
+                <td>
+                    <a href="{% url 'view_blog' blog.id %}" class="btn btn-info">View more</a>
+                    {% if user.is_authenticated and blog.author == user %}
+                        <a href="{% url 'hide_blog' blog.id %}" class="btn btn-warning">Hide</a>
+                    {% endif %}
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="4">No published blogs found.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    {% if user.is_authenticated %}
+    <h2>Hidden Blogs</h2>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Author</th>
+                <th>Created At</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for blog in hidden_blogs %}
+            {% if blog.author == user %}
+            <tr>
+                <td>{{ blog.title }}</td>
+                <td>{{ blog.author.username }}</td>
+                <td>{{ blog.created_at }}</td>
+                <td>
+                    <a href="{% url 'view_blog' blog.id %}" class="btn btn-info">View more</a>
+                    <a href="{% url 'show_blog' blog.id %}" class="btn btn-success">Show</a>
+                </td>
+            </tr>
+            {% endif %}
+            {% empty %}
+            <tr>
+                <td colspan="4">No hidden blogs found.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endif %}
+
+
+            {% empty %}
+            <tr>
+                <td colspan="4">No draft blogs found.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endif %}
+{% endblock %}

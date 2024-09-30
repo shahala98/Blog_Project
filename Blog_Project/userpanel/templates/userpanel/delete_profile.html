@@ -1,0 +1,18 @@
+{% extends 'userpanel/user_base.html' %}
+{% block title %}
+user panel | delete profile
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>Delete Profile</h1>
+    <p>Are you sure you want to delete your profile?</p>
+    <p>Deleting your profile will remove all associated data permanently.</p>
+    
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Delete Profile</button>
+        <a href="{% url 'view_profile'  %}" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+{% endblock %}

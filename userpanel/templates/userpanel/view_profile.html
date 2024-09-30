@@ -1,0 +1,65 @@
+{% extends 'userpanel/user_base.html' %}
+
+{% block title %}
+User | Profile
+{% endblock %}
+
+{% block content %}
+<a href="{% url 'user_home' %}" class="btn btn-primary">Back to home page</a>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Profile</h3>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <!-- Profile Image -->
+                            <div class="text-center">
+                                {% if user.profile.profile_image %}
+                                    <a href="{{ user.profile.profile_image.url }}" target="_blank">
+                                        <img src="{{ user.profile.profile_image.url }}" alt="Profile Image" class="img-fluid rounded-circle">
+                                    </a>
+                                {% else %}
+                                    <p>No Profile Image</p>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <!-- Profile Details -->
+                            <h4>{{ user.username }}</h4>
+                            <p><strong>Email:</strong> {{ user.email }}</p>
+                            <p><strong>Phone:</strong> {{ user.profile.phone }}</p>
+                            <p><strong>About:</strong> {{ user.profile.about }}</p>
+
+                            <p><strong>ID Proof:</strong> 
+                                {% if user.profile.id_proof %}
+                                    <a href="{{ user.profile.id_proof.url }}">View ID Proof</a>
+                                {% else %}
+                                    Not provided
+                                {% endif %}
+                            </p>
+
+                            <!-- Edit Profile Button -->
+                            {% if user.is_authenticated %}
+                                <a href="{% url 'edit_profile' %}" class="btn btn-primary">Edit Profile</a>
+                            {% endif %}
+
+                            <!-- Delete Profile Form -->
+                            {% if user.is_authenticated  %}
+                                <form action="{% url 'delete_profile' %}" method="post" style="display:inline;">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="profile_id" value="{{ user.profile.id }}">
+                                    <button type="submit" class="btn btn-danger">Delete Account</button>
+                                </form>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

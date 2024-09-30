@@ -1,0 +1,61 @@
+{% extends 'userpanel/user_base.html' %}
+
+{% block title %}
+userpanel | my blogs
+{% endblock %}
+
+{% block content %}
+<h2 class="text-center">Welcome to My Blogs</h2>
+
+<h3 class="text-center">Latest Blogs</h3>
+
+<br>
+
+{% if blogs %}
+    <div class="container d-flex justify-content-center">
+        <div class="row justify-content-center">
+            {% for blog in blogs %}
+                {% if blog.author == user %}
+                    <div class="col-md-6 mb-4">
+                        <div class="card">
+                            {% if blog.image %}
+                                <img src="{{ blog.image.url }}" class="card-img-top" alt="{{ blog.title }} Image">
+                            {% endif %}
+                            <div class="card-body">
+                                <h2 class="card-title">{{ blog.title }}</h2>
+                                <!-- Display only first 500 characters -->
+                                <p class="card-text">{{ blog.content|slice:":500" }}...</p>
+                                <div class="blog-actions">
+                                    <!-- Link to the edit blog view -->
+                                    
+                                    <!-- Link to the view more blog details view -->
+                                    <a href="{% url 'view_blog' blog.id %}" class="btn btn-secondary">View More</a>
+
+                                    <tbody>
+                                        {% for blog in draft_blogs %}
+                                        <tr>
+                                            <td>{{ blog.title }}</td>
+                                            <td>{{ blog.author.username }}</td>
+                                            <td>{{ blog.created_at }}</td>
+                                            <td>
+                                                <a href="{% url 'view_blog' blog.id %}" class="btn btn-info">View more</a>
+                                                {% if blog.author == user %}
+                                                    <a href="{% url 'publish_blog' blog.id %}" class="btn btn-primary">Publish</a>
+                                                {% endif %}
+                                            </td>
+                                        </tr>
+                                        
+                                        {% endfor %}
+                                    </tbody>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+{% else %}
+    <p class="text-center">No blogs found.</p>
+{% endif %}
+{% endblock %}
